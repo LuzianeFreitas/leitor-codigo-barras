@@ -34,7 +34,7 @@
             <div class="lista">
             <?php foreach($listas as $item)  { ?>
                 <?php 
-                    $listas_dados = explode('-', $item); 
+                    $listas_dados = explode('#', $item); 
                     if(count($listas_dados) < 4) {
                         continue;
                     }
@@ -45,6 +45,7 @@
                     <p>Região de destino: <?= $listas_dados[2] ?></p>
                     <p>Código do vendedor do produto: <?= $listas_dados[3] ?></p>
                     <p>Tipo do produto: <?= $listas_dados[4] ?></p>
+                    <hr>
                 </div>
                 
             <?php } ?> 
