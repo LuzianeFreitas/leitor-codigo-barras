@@ -15,21 +15,21 @@ modo automático, uma esteira inteligente lê o código de barras dos pacotes e 
 
 ## Região
 
-Região->Código
-Centro-oeste->111
-Nordeste->333
-Norte->555
-Sudeste->888
-Sul->000
+Região->Código<br>
+Centro-oeste->111<br>
+Nordeste->333<br>
+Norte->555<br>
+Sudeste->888<br>
+Sul->000<br>
 
 ## Produto
 
-Tipo do Produto->Código
-Jóias->000
-Livros->111
-Eletrônicos->333
-Bebidas->555
-Brinquedos->888
+Tipo do Produto->Código<br>
+Jóias->000<br>
+Livros->111<br>
+Eletrônicos->333<br>
+Bebidas->555<br>
+Brinquedos->888<br>
 
 ## Restrições
 
