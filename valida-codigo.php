@@ -45,9 +45,16 @@
         }
     }
 
+    $texto = $origem.'-'.$destino.'-'.$codigo_loggi.'-'.$codigo_vendedor.'-'.$tipo_produto. PHP_EOL;
 
-    
-    // header('Location: lista.php');
+
+    $arquivo = fopen('arquivo.lcb', 'a');
+
+    fwrite($arquivo,$texto);
+
+    fclose($arquivo);
+
+    header('Location: lista.php');
     
 ?>
 
