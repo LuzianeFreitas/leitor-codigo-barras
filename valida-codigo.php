@@ -30,11 +30,17 @@
         array('produto' => 'Brinquedos', 'codigo' => '888'),
     );
 
+    // Tamanho código 15
+    $valida_codigo = strlen($_POST['codigo']);
+    if($valida_codigo < 15 || $valida_codigo > 15) {
+        header('Location: index.php?erro=CódigoInválido');
+    }
+
     $codigo_formatado = str_split($_POST['codigo'],3);
 
-    echo '<pre>';
-    print_r($codigo_formatado);
-    echo '</pre>';
+    // echo '<pre>';
+    // print_r($codigo_formatado);
+    // echo '</pre>';
 
     foreach($regioes as $regiao){
         if($codigo_formatado[0] == $regiao['codigo']){
@@ -98,7 +104,7 @@
     echo 'Código cadastrado com sucesso!';
 
     echo '<br>';
-    //header('Location: lista.php?');
+    header('Location: lista.php?');
     
 ?>
 
