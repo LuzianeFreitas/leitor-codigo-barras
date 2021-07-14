@@ -5,7 +5,7 @@
     $codigo_loggi = null;
     $codigo_vendedor = null;
     $tipo_produto = null;
-    $restricao = 0;
+    $restricao = '0';
 
     // Restrições
     // 0 - Tudo ok
@@ -61,26 +61,24 @@
     foreach($tipos_produtos as $produto){
         if($codigo_formatado[4] == $produto['codigo']){
             $tipo_produto = $produto['produto'];
-        } else {
-            $tipo_produto = 'Produto inválido';
         }
     }
 
-
-    if($tipo_produto == 'Produto inválido') {
-        $restricao = 1;        
-    } 
+    if($tipo_produto == null) {
+        $tipo_produto = 'Produto inválido';
+        $restricao = '1';
+    }
     
     if($tipo_produto == 'Jóia' && $origem == 'Centro-oeste') {
-        $restricao = 2;
+        $restricao = '2';
     } 
     
     if($codigo_vendedor == '584') {
-        $restricao = 3;
+        $restricao = '3';
     } 
 
     if($tipo_produto == 'Brinquedos' && $origem == 'Sul') {
-        $restricao = 4;
+        $restricao = '4';
     }
 
     

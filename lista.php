@@ -7,10 +7,26 @@
     while (!feof($arquivo)) {
         $registro = fgets($arquivo);
 
-        $listas[] = $registro;
+        $registro_dados = explode('#', $registro);
+
+        if(count($registro_dados) < 5) {
+            continue;
+        }
+
+        if(($registro_dados[5] != '1') && ($registro_dados[5] != '2') && ($registro_dados[5] != '3')) {
+            // echo '<pre>';
+            // print_r($registro_dados);
+            // echo '</pre>';
+           $listas[] = $registro; 
+        }
         
       }
-    
+
+    //   echo ' Nova lista <br>';
+    //   echo '<pre>';
+    //   print_r($listas);
+    //   echo '</pre>';
+
       fclose($arquivo);
 
 ?>
@@ -35,9 +51,11 @@
             <?php foreach($listas as $item)  { ?>
                 <?php 
                     $listas_dados = explode('#', $item); 
-                    if(count($listas_dados) < 4) {
+
+                    if(count($listas_dados) < 5) {
                         continue;
                     }
+
                 ?>
                 <div class="item">
                     <p>Código: <?= $listas_dados[0] ?></p>
