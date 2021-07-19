@@ -92,19 +92,14 @@
 
     $texto = $origem.'#'.$destino.'#'.$codigo_loggi.'#'.$codigo_vendedor.'#'.$tipo_produto.'#'.$restricao. PHP_EOL;
 
-    echo '<br>';
-    echo $texto;
-
     $arquivo = fopen('arquivo.lcb', 'a');
 
     fwrite($arquivo,$texto);
 
     fclose($arquivo);
 
-    echo 'Código cadastrado com sucesso!';
-
-    echo '<br>';
-    header('Location: lista.php?');
+    
+    header('Location: index.php?');
     
 ?>
 

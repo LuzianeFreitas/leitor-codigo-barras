@@ -19,7 +19,10 @@
                     <input name="codigo" type="text">
                     <button type="submit">Consultar</button>
                 </form>
-            </div>         
+            </div> 
+            <div class="lista">
+                <a href="lista.php">Lista</a>
+            </div>        
         </section>
 
     </div>

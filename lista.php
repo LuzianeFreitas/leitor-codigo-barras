@@ -1,76 +1,150 @@
 <?php
+$filtro_lista = 1;
 
-    $listas = array();
+$listas = array();
 
-    $arquivo = fopen('arquivo.lcb', 'r');
+$lista_teste = array();
 
-    while (!feof($arquivo)) {
-        $registro = fgets($arquivo);
+$arquivo = fopen('arquivo.lcb', 'r');
 
-        $registro_dados = explode('#', $registro);
+while (!feof($arquivo)) {
+    $registro = fgets($arquivo);
 
-        if(count($registro_dados) < 5) {
-            continue;
-        }
+    $registro_dados = explode('#', $registro);
 
-        if(($registro_dados[5] != '1') && ($registro_dados[5] != '2') && ($registro_dados[5] != '3')) {
-            // echo '<pre>';
-            // print_r($registro_dados);
-            // echo '</pre>';
-           $listas[] = $registro; 
-        }
-        
-      }
+    if (count($registro_dados) < 5) {
+        continue;
+    }
 
-    //   echo ' Nova lista <br>';
-    //   echo '<pre>';
-    //   print_r($listas);
-    //   echo '</pre>';
+    if (($registro_dados[5] != '1') && ($registro_dados[5] != '2') && ($registro_dados[5] != '3') && ($registro_dados[0] != 'Origem inválida') && ($registro_dados[1] != 'Origem inválida')) {
+        $listas[] = $registro;
+    }
 
-      fclose($arquivo);
+    $lista_teste[] = $registro;
+    
+}
+
+  echo ' Nova lista <br>';
+  echo '<pre>';
+  print_r($listas);
+  echo '</pre>';
+  
+
+fclose($arquivo);
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-<div class="container" >
+    <div class="container">
         <header>
             <h1> Lista de códigos </h1>
         </header>
 
         <section>
+            <div class="busca">
+                <form method="POST" action="">
+                    <label for="listagem">Listar por:</label>
+                    <select name="listagem" id="listagem" onchange="this.form.submit()">
+                        <option value="" disabled selected>--select--</option>
+                        <option value="1">Todos</option>
+                        <option value="2">Região de destino</option>
+                        <option value="3">Nº pacotes por vendedor</option>
+                    </select>
+                </form>
+
+            </div>
 
             <div class="lista">
-            <?php foreach($listas as $item)  { ?>
-                <?php 
-                    $listas_dados = explode('#', $item); 
+                <?php if ($_POST["listagem"] == 1) { ?>
 
-                    if(count($listas_dados) < 5) {
-                        continue;
-                    }
+                    <?php foreach ($listas as $item) { ?>
+                        <?php
+                        $listas_dados = explode('#', $item);
 
-                ?>
-                <div class="item">
-                    <p>Código: <?= $listas_dados[0] ?></p>
-                    <p>Região de origem: <?= $listas_dados[1] ?></p>
-                    <p>Região de destino: <?= $listas_dados[2] ?></p>
-                    <p>Código do vendedor do produto: <?= $listas_dados[3] ?></p>
-                    <p>Tipo do produto: <?= $listas_dados[4] ?></p>
-                    <hr>
-                </div>
-                
-            <?php } ?> 
+                        if (count($listas_dados) < 5) {
+                            continue;
+                        }
+
+                        ?>
+                        <div class="item">
+                            <p>Código: <?= $listas_dados[2] ?></p>
+                            <p>Região de origem: <?= $listas_dados[0] ?></p>
+                            <p>Região de destino: <?= $listas_dados[1] ?></p>
+                            <p>Código do vendedor do produto: <?= $listas_dados[3] ?></p>
+                            <p>Tipo do produto: <?= $listas_dados[4] ?></p>
+                            <hr>
+                        </div>
+
+                    <?php } ?>
+                <?php } else if ($_POST["listagem"] == 2) { ?>
+                    <?php
+                        // Montagem de um array com chave e valor
+                        $novo_array = array();
+                        $tamanho_array = count($listas);
+                        $i = 0;
+                        
+                        foreach ($listas as $item) {
+                            $listas_dados = explode('#', $item);
+
+                            if (count($listas_dados) < 5) {
+                                continue;
+                            }
+                            if($i < $tamanho_array){
+                                $novo_array[$i]['loggi'] = $listas_dados[2];
+                                $novo_array[$i]['origem'] = $listas_dados[0];
+                                $novo_array[$i]['destino'] = $listas_dados[1];
+                                $novo_array[$i]['vendedor'] = $listas_dados[3];
+                                $novo_array[$i]['produto'] = $listas_dados[4];
+                                $novo_array[$i]['restricao'] = $listas_dados[5];
+                            }
+                            
+                            $i++;
+                        }
+
+                        // Ordenar pela região de destino
+
+                        $destino = $novo_array;
+                        $ordenado = array();
+
+                        foreach($destino as $key => $row){
+                            $ordenado[$key] = $row['destino'];
+                        }
+
+                        array_multisort($ordenado, SORT_DESC, $destino);
+
+                        // echo ' Nova lista <br>';
+                        // echo '<pre>';
+                        // print_r($destino);
+                        // echo '</pre>';
+                    ?>
+                    <?php foreach($destino as $items){?>
+                        <div class="item">
+                            <p>Código: <?= $items['loggi'] ?></p>
+                            <p>Região de origem: <?= $items['origem'] ?></p>
+                            <p>Região de destino: <?= $items['destino'] ?></p>
+                            <p>Código do vendedor do produto: <?= $items['vendedor'] ?></p>
+                            <p>Tipo do produto: <?= $items['produto'] ?></p>
+                            <hr>
+                        </div>
+                    <?php }?>
+                <?php } else if ($_POST["listagem"] == 3) { ?>
+                    3
+                <?php } ?>
             </div>
-           
+
         </section>
 
     </div>
 </body>
+
 </html>
