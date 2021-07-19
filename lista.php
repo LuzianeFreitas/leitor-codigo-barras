@@ -75,7 +75,7 @@ function montaArrayNovo($listas) {
 <body>
     <div class="container">
         <header>
-            <h1> Lista de códigos </h1>
+            <h1> Lista de pacotes </h1>
         </header>
 
         <section>

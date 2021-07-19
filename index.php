@@ -9,7 +9,7 @@
 <body>
     <div class="container" >
         <header>
-            <h1> Verificador de código de barras </h1>
+            <h1> Verificador de código de barras de pacotes</h1>
         </header>
 
         <section>
@@ -21,7 +21,7 @@
                 </form>
             </div> 
             <div class="lista">
-                <a href="lista.php">Lista</a>
+                <a href="lista.php">Pacotes</a>
             </div>        
         </section>
 
