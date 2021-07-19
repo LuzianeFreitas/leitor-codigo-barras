@@ -42,7 +42,7 @@ Brinquedos->888
 - [x] Identificar o destino de cada pacote.
 - [x] Saber quais pacotes possuem códigos de barras válidos e/ou inválidos.
 - [x] Identificar se algum pacote que tem como origem a região Sul tem Brinquedos em seu conteúdo.
-- [ ] Listar os pacotes agrupados por região de destino (Considere apenas pacotes válidos).
+- [x] Listar os pacotes agrupados por região de destino (Considere apenas pacotes válidos).
 - [ ] Listar o número de pacotes enviados por cada vendedor (Considere apenas pacotes válidos).
 - [ ] Gerar o relatório/lista de pacotes por destino e por tipo (Considere apenas pacotes válidos).
 
