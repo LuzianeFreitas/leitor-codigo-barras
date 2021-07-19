@@ -32,6 +32,34 @@ while (!feof($arquivo)) {
 
 fclose($arquivo);
 
+
+function montaArrayNovo($listas) {
+    // Montagem de um array com chave e valor
+    $novo_array = array();
+    $tamanho_array = count($listas);
+    $i = 0;
+    
+    foreach ($listas as $item) {
+        $listas_dados = explode('#', $item);
+
+        if (count($listas_dados) < 5) {
+            continue;
+        }
+        if($i < $tamanho_array){
+            $novo_array[$i]['loggi'] = $listas_dados[2];
+            $novo_array[$i]['origem'] = $listas_dados[0];
+            $novo_array[$i]['destino'] = $listas_dados[1];
+            $novo_array[$i]['vendedor'] = $listas_dados[3];
+            $novo_array[$i]['produto'] = $listas_dados[4];
+            $novo_array[$i]['restricao'] = $listas_dados[5];
+        }
+        
+        $i++;
+    }
+
+    return $novo_array;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +81,7 @@ fclose($arquivo);
         <section>
             <div class="busca">
                 <form method="POST" action="">
-                    <label for="listagem">Listar por:</label>
+                    <label for="listagem">Agrupar por:</label>
                     <select name="listagem" id="listagem" onchange="this.form.submit()">
                         <option value="" disabled selected>--select--</option>
                         <option value="1">Todos</option>
@@ -88,32 +116,9 @@ fclose($arquivo);
                     <?php } ?>
                 <?php } else if ($_POST["listagem"] == 2) { ?>
                     <?php
-                        // Montagem de um array com chave e valor
-                        $novo_array = array();
-                        $tamanho_array = count($listas);
-                        $i = 0;
-                        
-                        foreach ($listas as $item) {
-                            $listas_dados = explode('#', $item);
-
-                            if (count($listas_dados) < 5) {
-                                continue;
-                            }
-                            if($i < $tamanho_array){
-                                $novo_array[$i]['loggi'] = $listas_dados[2];
-                                $novo_array[$i]['origem'] = $listas_dados[0];
-                                $novo_array[$i]['destino'] = $listas_dados[1];
-                                $novo_array[$i]['vendedor'] = $listas_dados[3];
-                                $novo_array[$i]['produto'] = $listas_dados[4];
-                                $novo_array[$i]['restricao'] = $listas_dados[5];
-                            }
-                            
-                            $i++;
-                        }
-
                         // Ordenar pela região de destino
 
-                        $destino = $novo_array;
+                        $destino = montaArrayNovo($listas);
                         $ordenado = array();
 
                         foreach($destino as $key => $row){
@@ -122,10 +127,6 @@ fclose($arquivo);
 
                         array_multisort($ordenado, SORT_DESC, $destino);
 
-                        // echo ' Nova lista <br>';
-                        // echo '<pre>';
-                        // print_r($destino);
-                        // echo '</pre>';
                     ?>
                     <?php foreach($destino as $items){?>
                         <div class="item">
@@ -138,7 +139,41 @@ fclose($arquivo);
                         </div>
                     <?php }?>
                 <?php } else if ($_POST["listagem"] == 3) { ?>
-                    3
+                    <?php
+                        // Ordenar pela região de destino
+
+                        $destino = montaArrayNovo($listas);
+
+                        $ordenado = array();
+
+                        foreach($destino as $key => $row){
+                            $ordenado[$key] = $row['vendedor'];
+                        }
+
+                        array_multisort($ordenado, SORT_DESC, $destino);
+
+                        $numPacotesVendedor = array();
+
+                        foreach($destino as $key => $vendedor) {
+                            array_push($numPacotesVendedor, $vendedor['vendedor']);
+                        }
+
+
+                        $numPacotesVendedorAtualizado = array_count_values($numPacotesVendedor);
+
+
+                    ?>
+
+                    <?php foreach($numPacotesVendedorAtualizado as $chave => $valor){ ?>
+
+                        <div class="item">
+                            <p>Código do vendedor: <?= $chave ?></p>
+                            <p>Quantidade de pacotes: <?= $valor ?></p>
+                            <hr>
+                        </div>
+
+                    <?php } ?>
+
                 <?php } ?>
             </div>
 
