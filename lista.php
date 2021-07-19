@@ -24,10 +24,10 @@ while (!feof($arquivo)) {
     
 }
 
-  echo ' Nova lista <br>';
-  echo '<pre>';
-  print_r($listas);
-  echo '</pre>';
+//   echo ' Nova lista <br>';
+//   echo '<pre>';
+//   print_r($listas);
+//   echo '</pre>';
   
 
 fclose($arquivo);
