@@ -22,6 +22,7 @@
             </div> 
             <div class="lista">
                 <a href="lista.php">Pacotes</a>
+                <a href="">Gerar Relatório</a>
             </div>        
         </section>
 
